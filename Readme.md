@@ -1,7 +1,8 @@
-![Logo of the project](https://raw.githubusercontent.com/jehna/readme-best-practices/master/sample-logo.png)
+![Logo of the project](https://drive.google.com/file/d/1BkBRsF6BmIaHQLcgN7TEcw-iv626ZvM3/view?usp=sharing)
 
 # JavaScript Parser
 > by TubesLagi
+
 This project is created as an assignment of IF2124 Formal Language Theory and Automata.
 
 ## Installing / Getting started

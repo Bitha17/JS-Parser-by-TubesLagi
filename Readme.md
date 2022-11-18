@@ -1,4 +1,4 @@
-![Logo of the project](https://drive.google.com/file/d/1BkBRsF6BmIaHQLcgN7TEcw-iv626ZvM3/view?usp=sharing)
+![Logo](https://github.com/Bitha17/pics/blob/a8f1f8e0421dac89e84233695bed9b47df318157/20221103_162131%20(1)%20(1).jpg)
 
 # JavaScript Parser
 > by TubesLagi

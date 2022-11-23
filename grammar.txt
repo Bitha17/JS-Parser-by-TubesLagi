@@ -29,7 +29,6 @@ THEN -> then
 FROM -> from
 CLASS -> class
 IN -> in
-PERSEN -> %
 NBO -> (
 NBC -> )
 HASHTAG -> #
@@ -45,7 +44,6 @@ AND -> and
 OR -> or
 IS -> is
 CONTINUE -> continue
-WHILES -> while
 S -> ENTER S
 S -> S ENTER
 S -> ENTER

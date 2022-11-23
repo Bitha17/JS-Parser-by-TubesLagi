@@ -1,7 +1,7 @@
 def cykAlgorithm(w,cnf):
     # cyk table
     n = len(w)
-    cykTable = [[set() for j in range(n-i)] for i in range(n)]
+    cykTable = [[set([]) for j in range(n)] for i in range(n)]
 
     # Baris pertama cyk
     for i in range(0,n):
@@ -20,6 +20,6 @@ def cykAlgorithm(w,cnf):
 
     # output
     if len(cykTable[0][n - 1]) != 0:
-        print("Compile Succeed :)")
+        return True
     else:
-        print("Compile Failed :(")
+        return False

@@ -171,7 +171,7 @@ def tokenization(text):
     for token in tokens:
         tokenResult.append(token)
 
-    return " ".join(tokenResult)
+    return tokenResult
 
 def isTerminal(string):
     list_of_terminal = [

@@ -91,9 +91,9 @@ def CFG_to_CNF(CFG):
             else:
                 CFG[new_head].extend([new_body])
         
-        for delete_head, delete_body in delete.items():
-            for delete_variable in delete_body:
-                CFG[delete_head].remove(delete_variable)
+        # for delete_head, delete_body in delete.items():
+        #     for delete_variable in delete_body:
+        #         CFG[delete_head].remove(delete_variable)
 
         # Example condition now: 
         # A -> aBBB | AAA 
@@ -112,7 +112,7 @@ def CFG_to_CNF(CFG):
 
         for head, body in CFG.items():
             for variables in body:
-                if isTerminal(variables[0]) and isTerminal(variables[1]):
+                if len(variables) == 2 and isTerminal(variables[0]) and isTerminal(variables[1]):
                     new_symbol_1 = f"P{j}"
                     new_symbol_2 = f"Q{k}"
                     
@@ -129,7 +129,7 @@ def CFG_to_CNF(CFG):
                     else: 
                         delete[head].append([variables])
 
-                elif isTerminal(variables[0]) and isVar(variables[1]):
+                elif len(variables) == 2 and isTerminal(variables[0]) and isVar(variables[1]):
                     new_symbol = f"P{j}"
 
                     if head not in new.keys():
@@ -145,7 +145,7 @@ def CFG_to_CNF(CFG):
                         delete[head].append([variables])
                     
                     j += 1
-                elif isVar(variables[0]) and isTerminal(variables[1]):
+                elif len(variables) == 2 and isVar(variables[0]) and isTerminal(variables[1]):
                     new_symbol = f"Q{k}"
 
                     if head not in new.keys():
@@ -168,7 +168,7 @@ def CFG_to_CNF(CFG):
                 CFG[new_head].extend(new_body)
 
         # deleting the old production
-        for delete_head, delete_body in delete.keys():
+        for delete_head, delete_body in delete.items():
             if delete_head not in CFG.keys():
                 CFG[delete_head] = [delete_body]
             else:

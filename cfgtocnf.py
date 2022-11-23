@@ -1,4 +1,5 @@
-# from read_grammar import *
+from readgrammar import isTerminal, isVar
+
 def CGF_to_CNF(CFG):
     # Assigning heads and bodies to the list
     h_list = list(CFG.keys())
@@ -29,7 +30,7 @@ def CGF_to_CNF(CFG):
         # listing all the unit production to unit
         for head, body in CFG.items():
             for variables in body:
-                if (len(variables == 1) and is_variable(variables[0])): 
+                if (len(variables == 1) and isVar(variables[0])): 
                     unit_production = True
                     if (head not in unit.keys()):
                         unit[head] = [[variables[0]]]
@@ -111,7 +112,7 @@ def CGF_to_CNF(CFG):
 
         for head, body in CFG.items():
             for variables in body:
-                if is_terminal(variables[0]) and is_terimnal(variables[1]):
+                if isTerminal(variables[0]) and isTerminal(variables[1]):
                     new_symbol_1 = f"P{j}"
                     new_symbol_2 = f"Q{k}"
                     
@@ -128,7 +129,7 @@ def CGF_to_CNF(CFG):
                     else: 
                         delete[head].append([variables])
 
-                elif is_terminal(variables[0]) and is_variable(variables[1]):
+                elif isTerminal(variables[0]) and isVar(variables[1]):
                     new_symbol = f"P{j}"
 
                     if head not in new.keys():
@@ -144,7 +145,7 @@ def CGF_to_CNF(CFG):
                         delete[head].append([variables])
                     
                     j += 1
-                elif is_variable(variables[0]) and is_terminal(variables[1]):
+                elif isVar(variables[0]) and isTerminal(variables[1]):
                     new_symbol = f"Q{k}"
 
                     if head not in new.keys():

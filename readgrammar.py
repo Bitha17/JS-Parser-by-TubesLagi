@@ -248,5 +248,5 @@ def is_terminal(string):
     
     return string in list_of_terminal
     
-def is_variables(string):
+def is_variable(string):
     return not is_terminal(string)

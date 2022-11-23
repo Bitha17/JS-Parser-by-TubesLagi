@@ -1,5 +1,6 @@
-# from read_grammar import *
-def CGF_to_CNF(CFG):
+from readgrammar import *
+
+def CFG_to_CNF(CFG):
     # Assigning heads and bodies to the list
     h_list = list(CFG.keys())
     b_list = list(CFG.values())
@@ -29,7 +30,7 @@ def CGF_to_CNF(CFG):
         # listing all the unit production to unit
         for head, body in CFG.items():
             for variables in body:
-                if (len(variables == 1) and is_variable(variables[0])): 
+                if (len(variables) == 1 and is_variable(variables[0])): 
                     unit_production = True
                     if (head not in unit.keys()):
                         unit[head] = [[variables[0]]]
@@ -64,7 +65,7 @@ def CGF_to_CNF(CFG):
                 symbol_head = head
                 temp_variables = [v for v in variables]
                 if (len(temp_variables) > 2):
-                    while(len(temp_variables > 2)):
+                    while(len(temp_variables) > 2):
                         new_symbol = f"N{i}"
                         if symbol_head not in new.keys():
                             new[symbol_head] = [[temp_variables[0], new_symbol]] 
@@ -111,7 +112,7 @@ def CGF_to_CNF(CFG):
 
         for head, body in CFG.items():
             for variables in body:
-                if is_terminal(variables[0]) and is_terimnal(variables[1]):
+                if is_terminal(variables[0]) and is_terminal(variables[1]):
                     new_symbol_1 = f"P{j}"
                     new_symbol_2 = f"Q{k}"
                     

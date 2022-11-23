@@ -13,6 +13,7 @@ def CFG_to_CNF(CFG):
         for value in values:
             if (startSymbol in value):
                 new_production = True
+                break
         if (new_production):
             break
 
@@ -47,7 +48,7 @@ def CFG_to_CNF(CFG):
                         else:
                             for variables in body: 
                                 if variables not in CFG[head_unit]:
-                                    CFG[head_unit].append(body)
+                                    CFG[head_unit].append(variables)
 
         # removing the unit production from the body of CFG
         for head_unit, body_unit in unit.items():
@@ -78,22 +79,22 @@ def CFG_to_CNF(CFG):
                     if symbol_head not in new.keys():
                         new[symbol_head] = [temp_variables]
                     else: 
-                        new[symbol_head].append([temp_variables])
+                        new[symbol_head].append(temp_variables)
                     
                     if head not in delete.keys():
                         delete[head] = [variables]
                     else: 
-                        delete[head].append([variables])
+                        delete[head].append(variables)
 
         for new_head, new_body in new.items():
             if new_head not in CFG.keys():
                 CFG[new_head] = [new_body]
             else:
-                CFG[new_head].extend([new_body])
+                CFG[new_head].extend(new_body)
         
-        # for delete_head, delete_body in delete.items():
-        #     for delete_variable in delete_body:
-        #         CFG[delete_head].remove(delete_variable)
+        for delete_head, delete_body in delete.items():
+            for delete_variable in delete_body:
+                CFG[delete_head].remove(delete_variable)
 
         # Example condition now: 
         # A -> aBBB | AAA 
@@ -127,7 +128,10 @@ def CFG_to_CNF(CFG):
                     if head not in delete.keys():
                         delete[head] = [variables]
                     else: 
-                        delete[head].append([variables])
+                        delete[head].append(variables)
+
+                    j += 1
+                    k += 1
 
                 elif len(variables) == 2 and isTerminal(variables[0]) and isVar(variables[1]):
                     new_symbol = f"P{j}"
@@ -142,9 +146,10 @@ def CFG_to_CNF(CFG):
                     if head not in delete.keys():
                         delete[head] = [variables]
                     else:
-                        delete[head].append([variables])
+                        delete[head].append(variables)
                     
                     j += 1
+
                 elif len(variables) == 2 and isVar(variables[0]) and isTerminal(variables[1]):
                     new_symbol = f"Q{k}"
 
@@ -158,7 +163,8 @@ def CFG_to_CNF(CFG):
                     if head not in delete.keys():
                         delete[head] = [variables]
                     else:
-                        delete[head].append([variables])
+                        delete[head].append(variables)
+                    k += 1
 
         # adding new production 
         for new_head, new_body in new.items():
@@ -169,9 +175,7 @@ def CFG_to_CNF(CFG):
 
         # deleting the old production
         for delete_head, delete_body in delete.items():
-            if delete_head not in CFG.keys():
-                CFG[delete_head] = [delete_body]
-            else:
-                CFG[delete_head].remove(delete_body) 
+            for delete_variables in delete_body:
+                CFG[delete_head].remove(delete_variables) 
 
     return CFG

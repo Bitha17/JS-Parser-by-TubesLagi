@@ -173,7 +173,7 @@ def tokenization(text):
 
     return " ".join(tokenResult)
 
-def is_terminal(string):
+def isTerminal(string):
     list_of_terminal = [
         "DEFAULT",
         "DELETE",
@@ -247,6 +247,6 @@ def is_terminal(string):
     ]
     
     return string in list_of_terminal
-    
-def is_variable(string):
-    return not is_terminal(string)
+
+def isVar(string):
+    return not isTerminal(string)

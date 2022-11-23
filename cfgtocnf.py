@@ -30,7 +30,7 @@ def CFG_to_CNF(CFG):
         # listing all the unit production to unit
         for head, body in CFG.items():
             for variables in body:
-                if (len(variables == 1) and isVar(variables[0])): 
+                if (len(variables) == 1 and isVar(variables[0])): 
                     unit_production = True
                     if (head not in unit.keys()):
                         unit[head] = [[variables[0]]]

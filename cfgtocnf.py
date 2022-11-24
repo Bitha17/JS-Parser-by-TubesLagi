@@ -22,7 +22,7 @@ def CFG_to_CNF(CFG):
         new.update(CFG)
         CFG = new
     
-    # print("CFG PERTAMA: ", CFG, "close")
+    # print(CFG)
     # remove the unit production 
     unit_production = True
     while unit_production:
@@ -56,7 +56,9 @@ def CFG_to_CNF(CFG):
             for variables in body_unit:
                 # if len(variable_unit) == 1: gak usah kan udah di awal jadi yang ada di unit udah pasti panjang 1
                 CFG[head_unit].remove(variables)
-        # changing all the body to contain two piece
+        
+    # changing all the body to contain two piece
+    # print(CFG)
     new = {}
     delete = {}
     
@@ -75,20 +77,20 @@ def CFG_to_CNF(CFG):
                     symbol_head = new_symbol
                     temp_variables.remove(temp_variables[0])
                     i += 1
-
-                if symbol_head not in new.keys():
-                    new[symbol_head] = [temp_variables]
-                else: 
-                    new[symbol_head].append(temp_variables)
-                
-                if head not in delete.keys():
-                    delete[head] = [variables]
-                else: 
-                    delete[head].append(variables)
+                else:
+                    if symbol_head not in new.keys():
+                        new[symbol_head] = [temp_variables]
+                    else: 
+                        new[symbol_head].append(temp_variables)
+                    
+                    if head not in delete.keys():
+                        delete[head] = [variables]
+                    else: 
+                        delete[head].append(variables)
 
     for new_head, new_body in new.items():
         if new_head not in CFG.keys():
-            CFG[new_head] = [new_body]
+            CFG[new_head] = new_body
         else:
             CFG[new_head].extend(new_body)
     
@@ -96,15 +98,16 @@ def CFG_to_CNF(CFG):
         for delete_variable in delete_body:
             CFG[delete_head].remove(delete_variable)
 
-        # Example condition now: 
-        # A -> aBBB | AAA 
-        # to
-        # A -> aC | AD
-        # D -> AA
-        # C -> BE
-        # E -> BB
+    # print(CFG)
+    # Example condition now: 
+    # A -> aBBB | AAA 
+    # to
+    # A -> aC | AD
+    # D -> AA
+    # C -> BE
+    # E -> BB
 
-        # replace terminal next to variable or replace the terminal with variable
+    # replace terminal next to variable or replace the terminal with variable
     new = {}
     delete = {} 
 
@@ -169,7 +172,7 @@ def CFG_to_CNF(CFG):
     # adding new production 
     for new_head, new_body in new.items():
         if new_head not in CFG.keys():
-            CFG[new_head] = [new_body]
+            CFG[new_head] = new_body
         else:
             CFG[new_head].extend(new_body)
 
@@ -177,5 +180,5 @@ def CFG_to_CNF(CFG):
     for delete_head, delete_body in delete.items():
         for delete_variables in delete_body:
             CFG[delete_head].remove(delete_variables) 
-
+    
     return CFG

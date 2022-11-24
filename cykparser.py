@@ -19,7 +19,6 @@ def cykAlgorithm(w,cnf):
                             cykTable[j][i].add(head)
 
     # output
-    print(cykTable)
     if len(cykTable[0][n-1]) != 0:
         return True
     else:

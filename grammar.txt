@@ -1,48 +1,3 @@
-BREAK -> break
-CONST -> const
-CASE -> case
-CATCH -> catch
-CONTINUE -> continue
-DEFAULT -> default
-DELETE -> delete
-ELSE -> else
-FALSE -> false
-FINALLLY -> finally
-FOR -> for
-FUNCTION -> function
-IF -> if
-LET -> let
-NULL -> null
-SWITCH -> switch
-THROW -> throw
-TRY -> try
-TRUE -> true
-VAR -> var
-WHILE -> while
-IMPORT -> import
-WITH -> with
-RETURN -> return
-NOT -> not;
-RANGE -> range
-THEN -> then
-FROM -> from
-CLASS -> class
-IN -> in
-NBO -> (
-NBC -> )
-HASHTAG -> #
-SBO -> [
-SBC -> ]
-CBO -> {
-CBC -> }
-UNDERSCORE -> _
-PETIK1 -> '
-PETIK2 -> "
-NONE -> none
-AND -> and
-OR -> or
-IS -> is
-CONTINUE -> continue
 S -> ENTER S
 S -> S ENTER
 S -> ENTER
@@ -77,19 +32,12 @@ SENTENCE -> BREAK
 SENTENCE -> ENTER SENTENCE
 SENTENCE -> SENTENCE ENTER SENTENCE
 SENTENCE -> SENTENCE ENTER
-STRING -> string
 STRING -> STRING IN STRING
 STRING -> STRING IN VAR
 STRING -> STRING IN LIST
 STRING -> STRING IN DICT
-STRING -> multiline
 STRINGFORMAT -> STRING DOT FORMAT KBKI ARIT_OP KBKA
 STRINGFORMAT -> STRING DOT FORMAT KBKI VAR KBKA
-DOT -> dot
-KSKI -> kski
-KSKA -> kska
-KKKI -> kkki
-KKKA -> kkka
 DICT -> KKKI KKKA
 DICT -> KKKI PARAMDICT KKKA
 DICT -> KKKI KKKA
@@ -240,7 +188,6 @@ VARNUM -> NUM
 NUM -> NUM IN VAR
 NUM -> NUM IN LIST
 NUM -> NUM IN DICT
-VAR -> var
 VAR -> KBKI VAR KBKA
 VAR -> VAR COMMA VAR
 ENTER -> NEWLINE ENTER

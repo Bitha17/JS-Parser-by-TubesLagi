@@ -22,7 +22,7 @@ def CFG_to_CNF(CFG):
         new.update(CFG)
         CFG = new
     
-
+    # print("CFG PERTAMA: ", CFG, "close")
     # remove the unit production 
     unit_production = True
     while unit_production:
@@ -43,6 +43,7 @@ def CFG_to_CNF(CFG):
             for variable_unit in body_unit:
                 for head, body in CFG.items():
                     if head == variable_unit[0] and len(variable_unit) == 1:
+                        new = {head_unit : body}
                         if head_unit not in CFG.keys():
                             CFG[head_unit] = body
                         else:
@@ -55,46 +56,45 @@ def CFG_to_CNF(CFG):
             for variables in body_unit:
                 # if len(variable_unit) == 1: gak usah kan udah di awal jadi yang ada di unit udah pasti panjang 1
                 CFG[head_unit].remove(variables)
-            
         # changing all the body to contain two piece
-        new = {}
-        delete = {}
-        
-        i = 0
-        for head, body in CFG.items():
-            for variables in body:
-                symbol_head = head
-                temp_variables = [v for v in variables]
-                if (len(temp_variables) > 2):
-                    while(len(temp_variables) > 2):
-                        new_symbol = f"N{i}"
-                        if symbol_head not in new.keys():
-                            new[symbol_head] = [[temp_variables[0], new_symbol]] 
-                        else:
-                            new[symbol_head].append([temp_variables[0], new_symbol])                
-                        symbol_head = new_symbol
-                        temp_variables.remove(temp_variables[0])
-                        i += 1
-
+    new = {}
+    delete = {}
+    
+    i = 0
+    for head, body in CFG.items():
+        for variables in body:
+            symbol_head = head
+            temp_variables = [v for v in variables]
+            if (len(temp_variables) > 2):
+                while(len(temp_variables) > 2):
+                    new_symbol = f"N{i}"
                     if symbol_head not in new.keys():
-                        new[symbol_head] = [temp_variables]
-                    else: 
-                        new[symbol_head].append(temp_variables)
-                    
-                    if head not in delete.keys():
-                        delete[head] = [variables]
-                    else: 
-                        delete[head].append(variables)
+                        new[symbol_head] = [[temp_variables[0], new_symbol]] 
+                    else:
+                        new[symbol_head].append([temp_variables[0], new_symbol])                
+                    symbol_head = new_symbol
+                    temp_variables.remove(temp_variables[0])
+                    i += 1
 
-        for new_head, new_body in new.items():
-            if new_head not in CFG.keys():
-                CFG[new_head] = [new_body]
-            else:
-                CFG[new_head].extend(new_body)
-        
-        for delete_head, delete_body in delete.items():
-            for delete_variable in delete_body:
-                CFG[delete_head].remove(delete_variable)
+                if symbol_head not in new.keys():
+                    new[symbol_head] = [temp_variables]
+                else: 
+                    new[symbol_head].append(temp_variables)
+                
+                if head not in delete.keys():
+                    delete[head] = [variables]
+                else: 
+                    delete[head].append(variables)
+
+    for new_head, new_body in new.items():
+        if new_head not in CFG.keys():
+            CFG[new_head] = [new_body]
+        else:
+            CFG[new_head].extend(new_body)
+    
+    for delete_head, delete_body in delete.items():
+        for delete_variable in delete_body:
+            CFG[delete_head].remove(delete_variable)
 
         # Example condition now: 
         # A -> aBBB | AAA 
@@ -105,77 +105,77 @@ def CFG_to_CNF(CFG):
         # E -> BB
 
         # replace terminal next to variable or replace the terminal with variable
-        new = {}
-        delete = {} 
+    new = {}
+    delete = {} 
 
-        j = 0
-        k = 0
+    j = 0
+    k = 0
 
-        for head, body in CFG.items():
-            for variables in body:
-                if len(variables) == 2 and isTerminal(variables[0]) and isTerminal(variables[1]):
-                    new_symbol_1 = f"P{j}"
-                    new_symbol_2 = f"Q{k}"
-                    
-                    if head not in new.keys():
-                        new[head] = [[new_symbol_1, new_symbol_2]]
-                    else: 
-                        new[head].append([new_symbol_1, new_symbol_2])
+    for head, body in CFG.items():
+        for variables in body:
+            if len(variables) == 2 and isTerminal(variables[0]) and isTerminal(variables[1]):
+                new_symbol_1 = f"P{j}"
+                new_symbol_2 = f"Q{k}"
+                
+                if head not in new.keys():
+                    new[head] = [[new_symbol_1, new_symbol_2]]
+                else: 
+                    new[head].append([new_symbol_1, new_symbol_2])
 
-                    new[new_symbol_1] = [[variables[0]]]
-                    new[new_symbol_2] = [[variables[1]]]
+                new[new_symbol_1] = [[variables[0]]]
+                new[new_symbol_2] = [[variables[1]]]
 
-                    if head not in delete.keys():
-                        delete[head] = [variables]
-                    else: 
-                        delete[head].append(variables)
+                if head not in delete.keys():
+                    delete[head] = [variables]
+                else: 
+                    delete[head].append(variables)
 
-                    j += 1
-                    k += 1
+                j += 1
+                k += 1
 
-                elif len(variables) == 2 and isTerminal(variables[0]) and isVar(variables[1]):
-                    new_symbol = f"P{j}"
+            elif len(variables) == 2 and isTerminal(variables[0]) and isVar(variables[1]):
+                new_symbol = f"P{j}"
 
-                    if head not in new.keys():
-                        new[head] = [new_symbol, variables[1]]
-                    else:
-                        new[head].append([new_symbol, variables[1]])
+                if head not in new.keys():
+                    new[head] = [new_symbol, variables[1]]
+                else:
+                    new[head].append([new_symbol, variables[1]])
 
-                    new[new_symbol] = [[variables[0]]]
+                new[new_symbol] = [[variables[0]]]
 
-                    if head not in delete.keys():
-                        delete[head] = [variables]
-                    else:
-                        delete[head].append(variables)
-                    
-                    j += 1
+                if head not in delete.keys():
+                    delete[head] = [variables]
+                else:
+                    delete[head].append(variables)
+                
+                j += 1
 
-                elif len(variables) == 2 and isVar(variables[0]) and isTerminal(variables[1]):
-                    new_symbol = f"Q{k}"
+            elif len(variables) == 2 and isVar(variables[0]) and isTerminal(variables[1]):
+                new_symbol = f"Q{k}"
 
-                    if head not in new.keys():
-                        new[head] = [[variables[0], new_symbol]]
-                    else:
-                        new[head].append([variables[0], new_symbol]) 
+                if head not in new.keys():
+                    new[head] = [[variables[0], new_symbol]]
+                else:
+                    new[head].append([variables[0], new_symbol]) 
 
-                    new[new_symbol] = [[variables[1]]]
+                new[new_symbol] = [[variables[1]]]
 
-                    if head not in delete.keys():
-                        delete[head] = [variables]
-                    else:
-                        delete[head].append(variables)
-                    k += 1
+                if head not in delete.keys():
+                    delete[head] = [variables]
+                else:
+                    delete[head].append(variables)
+                k += 1
 
-        # adding new production 
-        for new_head, new_body in new.items():
-            if new_head not in CFG.keys():
-                CFG[new_head] = [new_body]
-            else:
-                CFG[new_head].extend(new_body)
+    # adding new production 
+    for new_head, new_body in new.items():
+        if new_head not in CFG.keys():
+            CFG[new_head] = [new_body]
+        else:
+            CFG[new_head].extend(new_body)
 
-        # deleting the old production
-        for delete_head, delete_body in delete.items():
-            for delete_variables in delete_body:
-                CFG[delete_head].remove(delete_variables) 
+    # deleting the old production
+    for delete_head, delete_body in delete.items():
+        for delete_variables in delete_body:
+            CFG[delete_head].remove(delete_variables) 
 
     return CFG

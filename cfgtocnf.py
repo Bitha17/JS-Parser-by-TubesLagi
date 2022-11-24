@@ -140,7 +140,7 @@ def CFG_to_CNF(CFG):
                 new_symbol = f"P{j}"
 
                 if head not in new.keys():
-                    new[head] = [new_symbol, variables[1]]
+                    new[head] = [[new_symbol, variables[1]]]
                 else:
                     new[head].append([new_symbol, variables[1]])
 

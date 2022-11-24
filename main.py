@@ -9,7 +9,7 @@ if __name__ == "__main__":
 
     args = argument_parser.parse_args()
     # print(tokenization(args.nama_file))
-    # print(CFG_to_CNF(read_grammar("grammar.txt")))
+    print(CFG_to_CNF(read_grammar("grammar.txt")))
     if cykAlgorithm(tokenization(args.nama_file), CFG_to_CNF(read_grammar("grammar.txt"))):
         print("ACCEPTED")
     else:

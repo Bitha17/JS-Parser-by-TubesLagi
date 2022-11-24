@@ -244,7 +244,7 @@ def isTerminal(string):
         "VAR",
         "NEWLINE",
         "TYPE",
-        "ARROW"
+        "ARROW",
     ]
     
     return string in list_of_terminal

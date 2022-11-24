@@ -27,7 +27,7 @@ token_exp = [
     (r'\:',                     "COLON"),
 
     # Operator
-    (r'\++',                    "INCR"),
+    (r'\+\+',                   "INCR"),
     (r'\--',                    "DECR"),
     (r'\==',                    "ISEQ"),
     (r'\=',                     "EQUAL"),

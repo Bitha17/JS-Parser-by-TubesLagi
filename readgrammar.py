@@ -11,9 +11,9 @@ token_exp = [
     # Integer and String
     (r'\"[^\"\n]*\"',           "STRING"),
     (r'\'[^\'\n]*\'',           "STRING"),
-    (r'[\+\-]?[0-9]*\.[0-9]+',  "NUM"),
-    (r'[\+\-]?[1-9][0-9]+',     "NUM"),
-    (r'[\+\-]?[0-9]',           "NUM"),
+    (r'[\+\-]?[0-9]*\.[0-9]+',  "NUMBER"),
+    (r'[\+\-]?[1-9][0-9]+',     "NUMBER"),
+    (r'[\+\-]?[0-9]',           "NUMBER"),
 
     # Delimiter
     (r'\n',                     "NEWLINE"),
@@ -62,7 +62,7 @@ token_exp = [
     (r'\bswitch\b',             "SWITCH"),
     (r'\bthrow\b',              "THROW"),
     (r'\btry\b',                "TRY"),
-    (r'\bvar\b',                "VAR"),
+    (r'\bvar\b',                "var"),
     (r'\belse if\b',           "ELIF"),
     (r'\bif\b',                 "IF"),
     (r'\bthen\b',               "THEN"),
@@ -95,7 +95,7 @@ token_exp = [
     (r'\.',                     "DOT"),
     (r'\'\'\'[(?!(\'\'\'))\w\W]*\'\'\'',       "MULTILINE"),
     (r'\"\"\"[(?!(\"\"\"))\w\W]*\"\"\"',       "MULTILINE"),
-    (r'[A-Za-z_][A-Za-z0-9_]*', "VAR"),
+    (r'[A-Za-z_][A-Za-z0-9_]*', "var"),
 ]
 
 # Read grammar from grammar.txt
@@ -241,10 +241,11 @@ def isTerminal(string):
         "NUMBER",
         "STRING",
         "MULTILINE",
-        "VAR",
+        "var",
         "NEWLINE",
         "TYPE",
         "ARROW",
+        "SEMICOLON"
     ]
     
     return string in list_of_terminal

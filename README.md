@@ -24,6 +24,7 @@ readgrammar.py
 cfgtocnf.py
 cykparser.py
 grammar_convert.py
+tokenizer.py
 README.md
 ```
 

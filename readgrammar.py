@@ -104,6 +104,10 @@ def isTerminal(string):
         "TYPE",
         "ARROW",
         "COMMENT",
+        "MOD",
+        "MODEQ",
+        "ISEQT",
+        "NEQT",
     ]
     
     return string in list_of_terminal
